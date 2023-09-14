@@ -29,10 +29,10 @@ $ serverless deploy
 After running deploy, you should see output similar to:
 
 ```bash
-Deploying aws-python-project to stage dev (us-east-1)
+Deploying sns-topic-with-policy to stage dev (us-east-1)
 
-✔ Service deployed to stack aws-python-project-dev (112s)
+✔ Service deployed to stack sns-topic-stack (103s)
 
-functions:
-  hello: aws-python-project-dev-hello (1.5 kB)
+
+Need a faster logging experience than CloudWatch? Try our Dev Mode in Console: run "serverless dev"
 ```
