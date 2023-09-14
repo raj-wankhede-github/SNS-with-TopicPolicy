@@ -12,7 +12,7 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 -->
 
 
-# Serverless Framework AWS Python Example
+# Serverless Framework to create SNS Topic and Topic Policy
 
 This template demonstrates how to deploy SNS topic and add Access policy for S3 bucket to publish messages to SNS using the Serverless Framework. 
 
