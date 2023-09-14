@@ -40,11 +40,12 @@ resources:
                   aws:SourceArn:
                     - !Sub "arn:aws:s3:::mybucket-${self:custom.rHangar}-${self:custom.rRegion}"
                     - !Sub "arn:aws:s3:::mybucket2-${self:custom.rHangar}-${self:custom.rRegion}"
+                    - !Sub "arn:aws:s3:::mybucket3-${self:custom.rHangar}-${self:custom.rRegion}"
         Topics:
           - Ref: rSNSTopic
 
 outputs:
-  oS3Bucket:
+  oSNSTopic:
     Description: SNS Topic
     Value: !Ref rSNSTopic
     Export:
