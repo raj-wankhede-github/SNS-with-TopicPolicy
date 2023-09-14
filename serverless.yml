@@ -1,0 +1,51 @@
+service: sns-topic-with-policy
+
+provider:
+  name: aws
+  region: ${self:custom.rRegion} # Use Serverless Framework variables for the region
+  stackName: ${self:custom.stackName} # Use Serverless Framework variables for the stack name
+
+custom:
+  rRegion: us-east-1 # Default region
+  stackName: sns-topic-stack # Default stack name
+  topicName: MyTopic
+  rHangar: dev3
+
+resources:
+  Resources:
+    rSNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: ${self:custom.topicName}
+        FifoTopic: false
+        TopicName: ${self:custom.topicName}
+
+    rTopicPolicy:
+      Type: AWS::SNS::TopicPolicy
+      DependsOn: rSNSTopic
+      Properties:
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - s3.amazonaws.com
+              Action:
+                - sns:Publish
+              Resource:
+                Ref: rSNSTopic
+              Condition:
+                ArnLike:
+                  aws:SourceArn:
+                    - !Sub "arn:aws:s3:::mybucket-${self:custom.rHangar}-${self:custom.rRegion}"
+                    - !Sub "arn:aws:s3:::mybucket2-${self:custom.rHangar}-${self:custom.rRegion}"
+        Topics:
+          - Ref: rSNSTopic
+
+outputs:
+  oS3Bucket:
+    Description: SNS Topic
+    Value: !Ref rSNSTopic
+    Export:
+      Name: ${self:custom.stackName}-SNSTopic
